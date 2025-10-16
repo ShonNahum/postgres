@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "postgresql.fullname" . }}
+  name: {{ .Release.Name }}-postgresql
   labels:
-    {{- include "postgresql.labels" . | nindent 4 }}
+    app: postgresql
+    release: {{ .Release.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "postgresql.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: postgresql
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "postgresql.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: postgresql
+        release: {{ .Release.Name }}
     spec:
       containers:
       - name: postgresql
@@ -28,17 +29,17 @@ spec:
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
-              name: {{ include "postgresql.fullname" . }}
+              name: {{ .Release.Name }}-postgresql
               key: postgres-database
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: {{ include "postgresql.fullname" . }}
+              name: {{ .Release.Name }}-postgresql
               key: postgres-username
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ include "postgresql.fullname" . }}
+              name: {{ .Release.Name }}-postgresql
               key: postgres-password
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
@@ -68,4 +69,4 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: {{ include "postgresql.fullname" . }}-data
+          claimName: {{ .Release.Name }}-postgresql-data
