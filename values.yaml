@@ -1,0 +1,26 @@
+postgresql:
+  fullImage: "13"  # FULL Options: "13" or "latest"
+  
+  # Database credentials
+  database: mydb
+  username: postgres
+  password: changeme
+  
+  # Storage configuration
+  storage:
+    size: 2Gi
+    storageClass: ""  # Leave empty for default storage class
+  
+  # Service configuration
+  service:
+    type: LoadBalancer
+    port: 5432
+  
+  # Resource limits
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"

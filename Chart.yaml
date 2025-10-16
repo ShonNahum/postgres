@@ -1,0 +1,6 @@
+apiVersion: v2
+name: postgresql
+description: A minimal PostgreSQL Helm chart
+type: application
+version: 1.0.0
+appVersion: "13"
