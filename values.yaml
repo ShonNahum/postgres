@@ -1,5 +1,5 @@
 postgresql:
-  fullImage: "13"  # FULL Options: "13" or "latest"
+  fullImage: "postgres:13"  # FULL Options: "13" or "latest"
   
   # Database credentials
   database: mydb
